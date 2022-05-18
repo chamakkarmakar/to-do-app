@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const Tasks = () => {
-    const [tasks, setTasks] = useState([]);
+const Tasks = ({tk}) => {
 
-    useEffect(() => {
-        fetch('http://localhost:5000/tasks')
-            .then(res => res.json())
-            .then(data => setTasks(data))
-    }, [])
+
     return (
-        <div>
-            {
-                    tasks.map(task =>
-                        <div key={task._id} className="border border-dark mt-3">
-                            <h1>{task.name}</h1>
-                            <p>{ task.description}</p>
-                        </div>)
-                }
+
+        <div className="border border-dark mt-3">
+            <h1>{tk.name}</h1>
+            <p>{tk.description}</p>
         </div>
+
     );
 };
 
