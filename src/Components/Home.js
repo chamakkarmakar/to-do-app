@@ -32,6 +32,24 @@ const Home = () => {
 
         event.target.reset();
     }
+    const handleDelete = id=> {
+        const proceed = window.confirm('Are you sure you want to delete?');
+        if (proceed) {
+            const url=`http://localhost:5000/tasks/${id}`
+            fetch(url, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(data =>{
+                if(data.deletedCount > 0){
+                    console.log('deleted');
+                    const remaining = tasks.filter(task => task._id !== id);
+                    setTasks(remaining);
+                }
+            })
+        }
+    }
+    
 
     return (
         <div className='mx-auto w-50'>
@@ -57,7 +75,7 @@ const Home = () => {
                             </div>
                             <div className='py-3 px-3'>
                             <button className='border rounded-3 me-3'>Complete</button>
-                            <button className='border rounded-3 me-3'>Delete</button>
+                            <button onClick={()=>handleDelete(tk._id)} className='border rounded-3 me-3'>Delete</button>
                             </div>
                         </div>
                     </div>)
